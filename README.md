@@ -1,8 +1,5 @@
 App Criado Durante a NWL edição 5
 
-<div align="center">
-  <img src=".github/podcastr-logo.svg" alt="Podcastr logo">
-</div>
 
 ## 🚀 Tecnologias
 
@@ -15,6 +12,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto 
 
-Site para Podcast 
+<h4 align="center">
+  Podcastr é uma plataforma construída para transmissão de podcast.
+</h4> 
 
 Feito Por Damon 
