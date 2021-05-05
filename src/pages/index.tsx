@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import { useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { format, parseISO } from 'date-fns';
@@ -6,6 +7,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 import styles from './home.module.scss'
+import { PlayerContext } from '../contexts/PlayerContext';
+
 
 type Episode = {
   id: string;
@@ -25,6 +28,9 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+
+  const { play } = useContext(PlayerContext)
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
@@ -44,18 +50,17 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
                 <div className={styles.episodeDetails}>
                   <Link href={`/episodes/${episode.id}`}>
-                  <a> {episode.title}
-                  </a>
+                    <a> {episode.title}
+                    </a>
                   </Link>
                   <p>{episode.members}</p>
                   <span>{episode.publishedAt}</span>
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Tocar episodio" />
                 </button>
-
               </li>
             )
           })}
@@ -68,12 +73,12 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
           <thead>
             <tr>
-            <th></th>
-            <th>Podcast</th>
-            <th>Integrantes</th>
-            <th>Data</th>
-            <th>Duração</th>
-            <th></th>
+              <th></th>
+              <th>Podcast</th>
+              <th>Integrantes</th>
+              <th>Data</th>
+              <th>Duração</th>
+              <th></th>
             </tr>
           </thead>
 
@@ -93,7 +98,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
                   <td>
                     <Link href={`/episodes/${episode.id}`}>
-                    <a>{episode.title}</a>
+                      <a>{episode.title}</a>
                     </Link>
                   </td>
                   <td>{episode.members}</td>
